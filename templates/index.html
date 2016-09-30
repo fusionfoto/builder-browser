@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+      crossorigin="anonymous"></script>
+    <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/main.css">
+    <script src="static/js/main.js"></script>
+  </head>
+  <body>
+    <form action="" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="file">Choose your builder</label>
+        <input type="file" name="file">
+      </div>
+      <input class="btn" type="submit" value="Upload">
+    </form>
+    <div class="ring">
+      <div class="tier regions">
+        <ul>
+        {% for region in data.regions %}
+          <li data-target="region-{{ region.id }}-zones">{{ region.name }}<div class="parts">
+              <div class="assigned" data-width="{{ region.assigned }}"></div>
+              <div class="over assigned" data-width="{{ region.over }}"></div>
+            </div>
+            <div class="wanted" data-width="{{ region.wanted }}"></div>
+            <div class="arrow arrow-region"></div>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+      <div class="tier zones">
+        {% for region in data.regions %}
+          <div class="buffer"></div>
+          <ul id="region-{{ region.id }}-zones">
+          {% for zone in region.zones %}
+            <li data-target="zone-{{ zone.id }}-nodes">{{ zone.name }}<div class="parts">
+                <div class="assigned" data-width="{{ zone.assigned }}"></div>
+                <div class="over assigned" data-width="{{ zone.over }}"></div>
+              </div>
+              <div class="wanted" data-width="{{ zone.wanted }}"></div>
+              <div class="arrow arrow-zone"></div>
+            </li>
+          {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
+      <div class="tier nodes">
+        {% for region in data.regions %}
+          {% for zone in region.zones %}
+            <div class="buffer"></div>
+            <ul id='zone-{{ zone.id }}-nodes'>
+            {% for node in zone.nodes %}
+              <li data-target="node-{{ node.id }}-devs">{{ node.name }}<div class="parts">
+                  <div class="assigned" data-width="{{ node.assigned }}"></div>
+                  <div class="over assigned" data-width="{{ node.over }}"></div>
+                </div>
+                <div class="wanted" data-width="{{ node.wanted }}"></div>
+                <div class="arrow arrow-node"></div>
+              </li>
+            {% endfor %}
+            </ul>
+          {% endfor %}
+        {% endfor %}
+      </div>
+      <div class="tier devices">
+        {% for region in data.regions %}
+          {% for zone in region.zones %}
+            {% for node in zone.nodes %}
+              <div class="buffer"></div>
+              <ul id='node-{{ node.id }}-devs'>
+              {% for dev in node.devs %}
+                <li>{{ dev.name }}<div class="parts">
+                  <div class="assigned" data-width="{{ dev.assigned }}"></div>
+                  <div class="over assigned" data-width="{{ dev.over }}"></div>
+                </div>
+                <div class="wanted" data-width="{{ dev.wanted }}"></div>
+                </li>
+              {% endfor %}
+              </ul>
+            {% endfor %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

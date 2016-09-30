@@ -1,0 +1,110 @@
+form {
+  margin: 20 0 0 20px;
+}
+
+div.ring {
+  padding: 20px;
+}
+
+div.ring:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+div.tier {
+  float: left;
+  width: 25%;
+}
+
+.ring ul {
+  display: none;
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+.ring li {
+  padding: 10 20 10 10px;
+}
+
+.ring li.buffer {
+  background: white;
+}
+
+.ring li:hover {
+  background: gold;
+}
+
+
+.arrow {
+  display: none;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid blue;
+  float: right;
+  margin-right: -20px;
+  margin-top: -30px;
+}
+
+.regions ul {
+  background: #ffbf00;
+}
+
+.arrow-region {
+  border-right:10px solid #ffac00;
+}
+
+.zones ul {
+  background: #ffac00;
+}
+
+.arrow-zone {
+  border-right: 10px solid #ff9900;
+}
+
+.nodes ul {
+  background: #ff9900;
+}
+
+.arrow-node {
+  border-right:10px solid #ff8600;
+}
+
+.devices ul {
+  background: #ff8600;
+}
+
+div.parts {
+  margin-top: 10px;
+}
+
+div.assigned {
+  height: 0.4em;
+  display: block;
+  background: green;
+  float: left;
+}
+
+div.assigned.over {
+  background: red;
+}
+
+div.assigned.under{
+  background: yellow;
+}
+
+div.parts:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+div.wanted {
+  height: 1em;
+  background: black;
+  margin-top: -0.7em;
+}
+
