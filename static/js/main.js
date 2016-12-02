@@ -1,4 +1,14 @@
 $(function () {
+  $('div.tier').hover(function() {
+    var hovered = this
+    $('div.tier').each(function() {
+      var target = "10%";
+      if (this == hovered) {
+        target = "70%"
+      }
+      $(this).animate({ width: target });
+    });
+  });
   $('div.regions ul').show();
   $('.ring li').click(function() {
     var selected_tier_item = $(this);
