@@ -1,5 +1,7 @@
 $(function () {
+  var in_element = false;
   $('div.tier').hover(function() {
+    in_element = true;
     var hovered = this
     $('div.tier').each(function() {
       var target = "10%";
@@ -8,6 +10,14 @@ $(function () {
       }
       $(this).animate({ width: target });
     });
+  }, function() {
+     in_element = false;
+     var handler = function() {
+       if (!in_element) {
+         $('div.tier').animate({ width: "25%" });
+       }
+     };
+     setTimeout(handler, 60);
   });
   $('div.regions ul').show();
   $('.ring li').click(function() {
