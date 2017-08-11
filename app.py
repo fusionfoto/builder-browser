@@ -28,7 +28,7 @@ def dispersion_report(builder):
 def inspect_builder(builder):
     data = {}
     for ring_device in builder._iter_devs():
-        if ring_device['parts'] == 0:
+        if all(ring_device[k] == 0 for k in ('parts', 'weight')):
             continue
         regions = data.setdefault('regions', [])
         for region in regions:
@@ -107,7 +107,11 @@ def inspect_builder(builder):
                 node['assigned_parts'], node['over_parts'] = report[tier]
                 for dev in node['devs']:
                     tier = (region['id'], zone['id'], node['ip'], dev['id'])
-                    dev['assigned_parts'], dev['over_parts'] = report[tier]
+                    try:
+                        dev['assigned_parts'], dev['over_parts'] = report[tier]
+                    except KeyError:
+                        # weighted device has no assigned parts!?
+                        dev['assigned_parts'], dev['over_parts'] = (0, 0)
                     ring_device = builder.devs[dev['id']]
                     wanted_parts = ring_device['weight'] * weight_of_one_part
                     for item in (region, zone, node, dev):
