@@ -40,7 +40,7 @@
           <div class="buffer"></div>
           <ul id="region-{{ region.id }}-zones">
           {% for zone in region.zones %}
-            <li data-target="zone-{{ zone.id }}-nodes">{{ zone.name }}<div class="parts">
+          <li data-target="region-{{ region.id }}-zone-{{ zone.id }}-nodes">{{ zone.name }}<div class="parts">
                 <div class="assigned" data-width="{{ zone.assigned }}"></div>
                 <div class="over assigned" data-width="{{ zone.over }}"></div>
               </div>
@@ -55,7 +55,7 @@
         {% for region in data.regions %}
           {% for zone in region.zones %}
             <div class="buffer"></div>
-            <ul id='zone-{{ zone.id }}-nodes'>
+            <ul id='region-{{ region.id }}-zone-{{ zone.id }}-nodes'>
             {% for node in zone.nodes %}
               <li data-target="node-{{ node.id }}-devs">{{ node.name }}<div class="parts">
                   <div class="assigned" data-width="{{ node.assigned }}"></div>
