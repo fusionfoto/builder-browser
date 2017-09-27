@@ -104,13 +104,17 @@ def inspect_builder(builder):
             zone['assigned_parts'], zone['over_parts'] = report[tier]
             for node in zone['nodes']:
                 tier = (region['id'], zone['id'], node['ip'])
-                node['assigned_parts'], node['over_parts'] = report[tier]
+                try:
+                    node['assigned_parts'], node['over_parts'] = report[tier]
+                except KeyError:
+                    # weighted server has no assigned parts (yet?)
+                    node['assigned_parts'], node['over_parts'] = (0, 0)
                 for dev in node['devs']:
                     tier = (region['id'], zone['id'], node['ip'], dev['id'])
                     try:
                         dev['assigned_parts'], dev['over_parts'] = report[tier]
                     except KeyError:
-                        # weighted device has no assigned parts!?
+                        # weighted device has no assigned parts (yet?)
                         dev['assigned_parts'], dev['over_parts'] = (0, 0)
                     ring_device = builder.devs[dev['id']]
                     wanted_parts = ring_device['weight'] * weight_of_one_part
